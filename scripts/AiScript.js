@@ -6,14 +6,13 @@ const genAI = new GoogleGenerativeAI(APIKEY);
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
-async function run() {
-  country = "canada"
-  const prompt = "i am going on a trip from tunisia to "+country+" can you provide me with 5 plans in this format : 1 - plan1 newline 2-plan2 etc"
+async function run(country) {
+  const prompt = "I am going on a trip from Tunisia to " + country + ". Can you provide me with 5 security-focused travel plans? Please format the plans as follows: 1 - Safety Tip 1\n2 - Safety Tip 2\n3 - Safety Tip 3\n4 - Safety Tip 4\n5 - Safety Tip 5. The advice should include personalized safety recommendations, precautions based on the destination, and any relevant security measures to ensure a safe trip."
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
   const text = response.text();
-  console.log(text);
+  return text;
 }
 
-run();
+module.exports = { run };
